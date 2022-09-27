@@ -104,6 +104,7 @@ public class DocumentResource extends BaseResource {
      * @apiSuccess {String} tags.name Name
      * @apiSuccess {String} tags.color Color
      * @apiSuccess {String} subject Subject
+     * @apiSuccess {String} status Status
      * @apiSuccess {String} identifier Identifier
      * @apiSuccess {String} publisher Publisher
      * @apiSuccess {String} format Format
@@ -199,6 +200,7 @@ public class DocumentResource extends BaseResource {
         
         // Below is specific to GET /document/id
         document.add("subject", JsonUtil.nullable(documentDto.getSubject()));
+        document.add("status", JsonUtil.nullable(documentDto.getStatus()));
         document.add("identifier", JsonUtil.nullable(documentDto.getIdentifier()));
         document.add("publisher", JsonUtil.nullable(documentDto.getPublisher()));
         document.add("format", JsonUtil.nullable(documentDto.getFormat()));
@@ -751,6 +753,8 @@ public class DocumentResource extends BaseResource {
         type = ValidationUtil.validateLength(type, "type", 0, 100, true);
         coverage = ValidationUtil.validateLength(coverage, "coverage", 0, 100, true);
         rights = ValidationUtil.validateLength(rights, "rights", 0, 100, true);
+
+
         Date createDate = ValidationUtil.validateDate(createDateStr, "create_date", true);
         if (!Constants.SUPPORTED_LANGUAGES.contains(language)) {
             throw new ClientException("ValidationError", MessageFormat.format("{0} is not a supported language", language));
@@ -770,6 +774,9 @@ public class DocumentResource extends BaseResource {
         document.setCoverage(coverage);
         document.setRights(rights);
         document.setLanguage(language);
+        // Applicants are by default ready to review
+        document.setStatus("Ready to review");
+
         if (createDate == null) {
             document.setCreateDate(new Date());
         } else {
@@ -936,6 +943,318 @@ public class DocumentResource extends BaseResource {
     }
 
     /**
+     * Updates the document status to be Ready to review.
+     *
+     * @api {post} /document/readytoreview/:id Update a document's status to Ready to review.
+     * @apiName PostDocumentR2RStatus
+     * @apiGroup Document
+     * @apiParam {String} id ID
+     * @apiSuccess {String} id Document ID
+     * @apiError (client) ForbiddenError Access denied or document not writable
+     * @apiError (client) ValidationError Validation error
+     * @apiError (client) NotFound Document not found
+     * @apiPermission user
+     * @apiVersion 1.5.0
+     *
+     * @return Response
+     */
+    @POST
+    @Path("readytoreview/{id: [a-z0-9\\-]+}")
+    public Response updateStatusR2R(
+            @PathParam("id") String id) {
+        if (!authenticate()) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Check write permission
+        AclDao aclDao = new AclDao();
+        if (!aclDao.checkPermission(id, PermType.WRITE, getTargetIdList(null))) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Get the document
+        DocumentDao documentDao = new DocumentDao();
+        Document document = documentDao.getById(id);
+        if (document == null) {
+            throw new NotFoundException();
+        }
+        
+        // Update the document's status
+        document.setStatus("Ready to review");
+        documentDao.update(document, principal.getId());
+
+        // Raise a document updated event
+        DocumentUpdatedAsyncEvent documentUpdatedAsyncEvent = new DocumentUpdatedAsyncEvent();
+        documentUpdatedAsyncEvent.setUserId(principal.getId());
+        documentUpdatedAsyncEvent.setDocumentId(id);
+        ThreadLocalContext.get().addAsyncEvent(documentUpdatedAsyncEvent);
+        
+        JsonObjectBuilder response = Json.createObjectBuilder()
+                .add("id", id);
+        return Response.ok().entity(response.build()).build();
+    }
+
+    /**
+     * Updates the document status to be In review.
+     *
+     * @api {post} /document/inreview/:id Update a document's status to In review.
+     * @apiName PostDocumentIRStatus
+     * @apiGroup Document
+     * @apiParam {String} id ID
+     * @apiSuccess {String} id Document ID
+     * @apiError (client) ForbiddenError Access denied or document not writable
+     * @apiError (client) ValidationError Validation error
+     * @apiError (client) NotFound Document not found
+     * @apiPermission user
+     * @apiVersion 1.5.0
+     *
+     * @return Response
+     */
+    @POST
+    @Path("inreview/{id: [a-z0-9\\-]+}")
+    public Response updateStatusIR(
+            @PathParam("id") String id) {
+        if (!authenticate()) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Check write permission
+        AclDao aclDao = new AclDao();
+        if (!aclDao.checkPermission(id, PermType.WRITE, getTargetIdList(null))) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Get the document
+        DocumentDao documentDao = new DocumentDao();
+        Document document = documentDao.getById(id);
+        if (document == null) {
+            throw new NotFoundException();
+        }
+        
+        // Update the document's status
+        document.setStatus("In Review");
+        documentDao.update(document, principal.getId());
+
+        // Raise a document updated event
+        DocumentUpdatedAsyncEvent documentUpdatedAsyncEvent = new DocumentUpdatedAsyncEvent();
+        documentUpdatedAsyncEvent.setUserId(principal.getId());
+        documentUpdatedAsyncEvent.setDocumentId(id);
+        ThreadLocalContext.get().addAsyncEvent(documentUpdatedAsyncEvent);
+        
+        JsonObjectBuilder response = Json.createObjectBuilder()
+                .add("id", id);
+        return Response.ok().entity(response.build()).build();
+    }
+
+    /**
+     * Updates the document status to be Accepted.
+     *
+     * @api {post} /document/accepted/:id Update a document's status to Accepted.
+     * @apiName PostDocumentACCStatus
+     * @apiGroup Document
+     * @apiParam {String} id ID
+     * @apiSuccess {String} id Document ID
+     * @apiError (client) ForbiddenError Access denied or document not writable
+     * @apiError (client) ValidationError Validation error
+     * @apiError (client) NotFound Document not found
+     * @apiPermission user
+     * @apiVersion 1.5.0
+     *
+     * @return Response
+     */
+    @POST
+    @Path("accepted/{id: [a-z0-9\\-]+}")
+    public Response updateStatusACC(
+            @PathParam("id") String id) {
+        if (!authenticate()) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Check write permission
+        AclDao aclDao = new AclDao();
+        if (!aclDao.checkPermission(id, PermType.WRITE, getTargetIdList(null))) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Get the document
+        DocumentDao documentDao = new DocumentDao();
+        Document document = documentDao.getById(id);
+        if (document == null) {
+            throw new NotFoundException();
+        }
+        
+        // Update the document's status
+        document.setStatus("Accepted");
+        documentDao.update(document, principal.getId());
+
+        // Raise a document updated event
+        DocumentUpdatedAsyncEvent documentUpdatedAsyncEvent = new DocumentUpdatedAsyncEvent();
+        documentUpdatedAsyncEvent.setUserId(principal.getId());
+        documentUpdatedAsyncEvent.setDocumentId(id);
+        ThreadLocalContext.get().addAsyncEvent(documentUpdatedAsyncEvent);
+        
+        JsonObjectBuilder response = Json.createObjectBuilder()
+                .add("id", id);
+        return Response.ok().entity(response.build()).build();
+    }
+
+    /**
+     * Updates the document status to be Waitlisted.
+     *
+     * @api {post} /document/waitlisted/:id Update a document's status to Waitlisted.
+     * @apiName PostDocumentWLStatus
+     * @apiGroup Document
+     * @apiParam {String} id ID
+     * @apiSuccess {String} id Document ID
+     * @apiError (client) ForbiddenError Access denied or document not writable
+     * @apiError (client) ValidationError Validation error
+     * @apiError (client) NotFound Document not found
+     * @apiPermission user
+     * @apiVersion 1.5.0
+     *
+     * @return Response
+     */
+    @POST
+    @Path("waitlisted/{id: [a-z0-9\\-]+}")
+    public Response updateStatusWL(
+            @PathParam("id") String id) {
+        if (!authenticate()) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Check write permission
+        AclDao aclDao = new AclDao();
+        if (!aclDao.checkPermission(id, PermType.WRITE, getTargetIdList(null))) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Get the document
+        DocumentDao documentDao = new DocumentDao();
+        Document document = documentDao.getById(id);
+        if (document == null) {
+            throw new NotFoundException();
+        }
+        
+        // Update the document's status
+        document.setStatus("Waitlisted");
+        documentDao.update(document, principal.getId());
+
+        // Raise a document updated event
+        DocumentUpdatedAsyncEvent documentUpdatedAsyncEvent = new DocumentUpdatedAsyncEvent();
+        documentUpdatedAsyncEvent.setUserId(principal.getId());
+        documentUpdatedAsyncEvent.setDocumentId(id);
+        ThreadLocalContext.get().addAsyncEvent(documentUpdatedAsyncEvent);
+        
+        JsonObjectBuilder response = Json.createObjectBuilder()
+                .add("id", id);
+        return Response.ok().entity(response.build()).build();
+    }
+
+    /**
+     * Updates the document status to be Rejected.
+     *
+     * @api {post} /document/rejected/:id Update a document's status to Rejected.
+     * @apiName PostDocumentREJStatus
+     * @apiGroup Document
+     * @apiParam {String} id ID
+     * @apiSuccess {String} id Document ID
+     * @apiError (client) ForbiddenError Access denied or document not writable
+     * @apiError (client) ValidationError Validation error
+     * @apiError (client) NotFound Document not found
+     * @apiPermission user
+     * @apiVersion 1.5.0
+     *
+     * @return Response
+     */
+    @POST
+    @Path("rejected/{id: [a-z0-9\\-]+}")
+    public Response updateStatusREJ(
+            @PathParam("id") String id) {
+        if (!authenticate()) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Check write permission
+        AclDao aclDao = new AclDao();
+        if (!aclDao.checkPermission(id, PermType.WRITE, getTargetIdList(null))) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Get the document
+        DocumentDao documentDao = new DocumentDao();
+        Document document = documentDao.getById(id);
+        if (document == null) {
+            throw new NotFoundException();
+        }
+        
+        // Update the document's status
+        document.setStatus("Rejected");
+        documentDao.update(document, principal.getId());
+
+        // Raise a document updated event
+        DocumentUpdatedAsyncEvent documentUpdatedAsyncEvent = new DocumentUpdatedAsyncEvent();
+        documentUpdatedAsyncEvent.setUserId(principal.getId());
+        documentUpdatedAsyncEvent.setDocumentId(id);
+        ThreadLocalContext.get().addAsyncEvent(documentUpdatedAsyncEvent);
+        
+        JsonObjectBuilder response = Json.createObjectBuilder()
+                .add("id", id);
+        return Response.ok().entity(response.build()).build();
+    }
+
+    /**
+     * Updates the document status to be Flagged.
+     *
+     * @api {post} /document/flagged/:id Update a document's status to Flagged.
+     * @apiName PostDocumentFLStatus
+     * @apiGroup Document
+     * @apiParam {String} id ID
+     * @apiSuccess {String} id Document ID
+     * @apiError (client) ForbiddenError Access denied or document not writable
+     * @apiError (client) ValidationError Validation error
+     * @apiError (client) NotFound Document not found
+     * @apiPermission user
+     * @apiVersion 1.5.0
+     *
+     * @return Response
+     */
+    @POST
+    @Path("flagged/{id: [a-z0-9\\-]+}")
+    public Response updateStatusFL(
+            @PathParam("id") String id) {
+        if (!authenticate()) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Check write permission
+        AclDao aclDao = new AclDao();
+        if (!aclDao.checkPermission(id, PermType.WRITE, getTargetIdList(null))) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Get the document
+        DocumentDao documentDao = new DocumentDao();
+        Document document = documentDao.getById(id);
+        if (document == null) {
+            throw new NotFoundException();
+        }
+        
+        // Update the document's status
+        document.setStatus("Flagged");
+        documentDao.update(document, principal.getId());
+
+        // Raise a document updated event
+        DocumentUpdatedAsyncEvent documentUpdatedAsyncEvent = new DocumentUpdatedAsyncEvent();
+        documentUpdatedAsyncEvent.setUserId(principal.getId());
+        documentUpdatedAsyncEvent.setDocumentId(id);
+        ThreadLocalContext.get().addAsyncEvent(documentUpdatedAsyncEvent);
+        
+        JsonObjectBuilder response = Json.createObjectBuilder()
+                .add("id", id);
+        return Response.ok().entity(response.build()).build();
+    }
+
+    /**
      * Import a new document from an EML file.
      *
      * @api {put} /document/eml Import a new document from an EML file
@@ -997,6 +1316,7 @@ public class DocumentResource extends BaseResource {
         }
         document.setDescription(StringUtils.abbreviate(mailContent.getMessage(), 4000));
         document.setSubject(StringUtils.abbreviate(mailContent.getSubject(), 500));
+        document.setStatus("Ready to review");
         document.setFormat("EML");
         document.setSource("Email");
         document.setLanguage(ConfigUtil.getConfigStringValue(ConfigType.DEFAULT_LANGUAGE));
