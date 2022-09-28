@@ -48,6 +48,12 @@ public class Document implements Loggable {
     private String title;
     
     /**
+     * GPA range.
+     */
+    @Column(name = "DOC_GPA_C", nullable = false, length = 3)
+    private String gpa;
+
+    /**
      * Description.
      */
     @Column(name = "DOC_DESCRIPTION_C", length = 4000)
