@@ -299,6 +299,10 @@ public class LuceneIndexingHandler implements IndexingHandler {
             criteriaList.add("d.DOC_TITLE_C = :title");
             parameterMap.put("title", criteria.getTitle());
         }
+        if (criteria.getGPA() != null) {
+            criteriaList.add("d.DOC_GPA_C = :gpa");
+            parameterMap.put("gpa", criteria.getGPA());
+        }
         if (!criteria.getTagIdList().isEmpty()) {
             int index = 0;
             for (List<String> tagIdList : criteria.getTagIdList()) {
@@ -366,6 +370,7 @@ public class LuceneIndexingHandler implements IndexingHandler {
             documentDto.setDescription((String) o[i++]);
             documentDto.setCreateTimestamp(((Timestamp) o[i++]).getTime());
             documentDto.setLanguage((String) o[i++]);
+            documentDto.setGPA((String) o[i++]);
             documentDto.setFileId((String) o[i++]);
             Number shareCount = (Number) o[i++];
             documentDto.setShared(shareCount != null && shareCount.intValue() > 0);

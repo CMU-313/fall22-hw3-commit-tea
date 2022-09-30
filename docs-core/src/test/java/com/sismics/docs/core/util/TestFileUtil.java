@@ -94,6 +94,7 @@ public class TestFileUtil {
             documentDto.setCoverage("France");
             documentDto.setRights("Public Domain");
             documentDto.setLanguage("en");
+            documentDto.setGPA("3.7-4.0");
             documentDto.setCreator("user1");
             documentDto.setCreateTimestamp(new Date().getTime());
             
