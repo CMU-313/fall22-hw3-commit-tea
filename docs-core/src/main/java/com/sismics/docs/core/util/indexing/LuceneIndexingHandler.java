@@ -370,7 +370,6 @@ public class LuceneIndexingHandler implements IndexingHandler {
             documentDto.setDescription((String) o[i++]);
             documentDto.setCreateTimestamp(((Timestamp) o[i++]).getTime());
             documentDto.setLanguage((String) o[i++]);
-            documentDto.setGPA((String) o[i++]);
             documentDto.setFileId((String) o[i++]);
             Number shareCount = (Number) o[i++];
             documentDto.setShared(shareCount != null && shareCount.intValue() > 0);
