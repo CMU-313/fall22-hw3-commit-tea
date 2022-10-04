@@ -20,7 +20,12 @@ public class DocumentDto {
      * Title.
      */
     private String title;
-    
+
+    /**
+     * GPA range.
+     */
+    private String gpa;
+
     /**
      * Description.
      */
@@ -139,6 +144,14 @@ public class DocumentDto {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getGPA() {
+        return gpa;
+    }
+
+    public void setGPA(String gpa) {
+        this.gpa = gpa;
     }
 
     public String getDescription() {

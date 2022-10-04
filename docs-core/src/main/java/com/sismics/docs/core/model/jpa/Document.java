@@ -54,6 +54,12 @@ public class Document implements Loggable {
     private String title;
     
     /**
+     * GPA range.
+     */
+    @Column(name = "DOC_GPA_C", nullable = false, length = 20)
+    private String gpa = "3.7-4.0";
+
+    /**
      * Description.
      */
     @Column(name = "DOC_DESCRIPTION_C", length = 4000)
@@ -173,7 +179,14 @@ public class Document implements Loggable {
     public void setTitle(String title) {
         this.title = title;
     }
+    
+    public void setGPA(String gpa) {
+        this.gpa = gpa;
+    }
 
+    public String getGPA() {
+        return this.gpa;
+    }
     public String getDescription() {
         return description;
     }
@@ -186,8 +199,8 @@ public class Document implements Loggable {
         return subject;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public String setSubject(String subject) {
+        return this.subject = subject;
     }
 
     public String getIdentifier() {
@@ -254,7 +267,6 @@ public class Document implements Loggable {
         this.createDate = createDate;
     }
 
-    @Override
     public Date getDeleteDate() {
         return deleteDate;
     }

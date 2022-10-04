@@ -14,6 +14,12 @@ public abstract class FileEvent extends UserEvent {
      * File ID.
      */
     private String fileId;
+
+    /**
+     * Applicant gpa.
+     */
+    private String gpa;
+
     
     /**
      * Language of the file.
@@ -24,6 +30,7 @@ public abstract class FileEvent extends UserEvent {
      * Applicant status.
      */
     private String status;
+    
     
     /**
      * Unencrypted original file.
@@ -44,6 +51,14 @@ public abstract class FileEvent extends UserEvent {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getGPA() {
+        return gpa;
+    }
+
+    public void setGPA(String gpa) {
+        this.gpa = gpa;
     }
 
     public String getStatus() {

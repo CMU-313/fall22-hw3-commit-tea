@@ -93,6 +93,11 @@ public class DocumentCriteria {
      */
     private String title;
 
+     /**
+     * The GPA range.
+     */
+    private String gpa;
+
     public List<String> getTargetIdList() {
         return targetIdList;
     }
@@ -211,5 +216,13 @@ public class DocumentCriteria {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getGPA() {
+        return gpa;
+    }
+
+    public void setGPA(String gpa) {
+        this.gpa = gpa;
     }
 }
