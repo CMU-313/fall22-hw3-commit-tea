@@ -60,6 +60,7 @@ angular.module('docs').controller('DocumentEdit', function($rootScope, $scope, $
       tags: [],
       relations: [],
       language: language,
+      gpa: "8",
       metadata: []
     };
 
