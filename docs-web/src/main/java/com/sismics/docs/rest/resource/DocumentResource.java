@@ -105,6 +105,7 @@ public class DocumentResource extends BaseResource {
      * @apiSuccess {String} tags.color Color
      * @apiSuccess {String} subject Subject
      * @apiSuccess {String} status Status
+     * @apiSuccess {String} gpa GPA
      * @apiSuccess {String} identifier Identifier
      * @apiSuccess {String} publisher Publisher
      * @apiSuccess {String} format Format
@@ -174,7 +175,8 @@ public class DocumentResource extends BaseResource {
                 .add("update_date", documentDto.getUpdateTimestamp())
                 .add("language", documentDto.getLanguage())
                 .add("shared", documentDto.getShared())
-                .add("file_count", documentDto.getFileCount());
+                .add("file_count", documentDto.getFileCount())
+                .add("gpa", documentDto.getGPA());
 
         List<TagDto> tagDtoList = null;
         if (principal.isAnonymous()) {
@@ -695,6 +697,7 @@ public class DocumentResource extends BaseResource {
      * @apiParam {String[]} [metadata_value] List of metadata values
      * @apiParam {String} language Language
      * @apiParam {Number} [create_date] Create date (timestamp)
+     * @apiParam {String} gpa GPA
      * @apiSuccess {String} id Document ID
      * @apiError (client) ForbiddenError Access denied
      * @apiError (client) ValidationError Validation error
@@ -704,6 +707,7 @@ public class DocumentResource extends BaseResource {
      * @param title Title
      * @param description Description
      * @param subject Subject
+     * @param gpa GPA
      * @param identifier Identifier
      * @param publisher Publisher
      * @param format Format
@@ -724,6 +728,7 @@ public class DocumentResource extends BaseResource {
             @FormParam("title") String title,
             @FormParam("description") String description,
             @FormParam("subject") String subject,
+            @FormParam("gpa") String gpa,
             @FormParam("identifier") String identifier,
             @FormParam("publisher") String publisher,
             @FormParam("format") String format,
@@ -742,6 +747,7 @@ public class DocumentResource extends BaseResource {
         }
         
         // Validate input data
+
         title = ValidationUtil.validateLength(title, "title", 1, 100, false);
         language = ValidationUtil.validateLength(language, "language", 3, 7, false);
         description = ValidationUtil.validateLength(description, "description", 0, 4000, true);
@@ -753,7 +759,8 @@ public class DocumentResource extends BaseResource {
         type = ValidationUtil.validateLength(type, "type", 0, 100, true);
         coverage = ValidationUtil.validateLength(coverage, "coverage", 0, 100, true);
         rights = ValidationUtil.validateLength(rights, "rights", 0, 100, true);
-
+        
+        gpa = ValidationUtil.validateGPA(gpa);
 
         Date createDate = ValidationUtil.validateDate(createDateStr, "create_date", true);
         if (!Constants.SUPPORTED_LANGUAGES.contains(language)) {
@@ -766,6 +773,7 @@ public class DocumentResource extends BaseResource {
         document.setTitle(title);
         document.setDescription(description);
         document.setSubject(subject);
+        document.setGPA(gpa);
         document.setIdentifier(identifier);
         document.setPublisher(publisher);
         document.setFormat(format);
@@ -820,6 +828,7 @@ public class DocumentResource extends BaseResource {
      * @apiParam {String} title Title
      * @apiParam {String} [description] Description
      * @apiParam {String} [subject] Subject
+     * @apiParam {String} [gpa] GPA
      * @apiParam {String} [identifier] Identifier
      * @apiParam {String} [publisher] Publisher
      * @apiParam {String} [format] Format
@@ -851,6 +860,7 @@ public class DocumentResource extends BaseResource {
             @FormParam("title") String title,
             @FormParam("description") String description,
             @FormParam("subject") String subject,
+            @FormParam("gpa") String gpa,
             @FormParam("identifier") String identifier,
             @FormParam("publisher") String publisher,
             @FormParam("format") String format,
@@ -869,6 +879,8 @@ public class DocumentResource extends BaseResource {
         }
         
         // Validate input data
+
+        gpa = ValidationUtil.validateGPA(gpa);
         title = ValidationUtil.validateLength(title, "title", 1, 100, false);
         language = ValidationUtil.validateLength(language, "language", 3, 7, false);
         description = ValidationUtil.validateLength(description, "description", 0, 4000, true);
@@ -910,6 +922,8 @@ public class DocumentResource extends BaseResource {
         document.setCoverage(coverage);
         document.setRights(rights);
         document.setLanguage(language);
+        document.setGPA(gpa);
+
         if (createDate == null) {
             document.setCreateDate(new Date());
         } else {
