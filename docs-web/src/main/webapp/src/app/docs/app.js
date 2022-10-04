@@ -573,14 +573,14 @@ angular.module('docs',
 
   //Buckets
   $rootScope.gpaBuckets = [
-    { key: '1', label: '3.66 - 4.00' },
-    { key: '2', label: '3.33 - 3.65' },
-    { key: '3', label: '3.00 - 3.32' },
-    { key: '4', label: '2.66 - 2.99' },
-    { key: '5', label: '2.33 - 2.65' },
-    { key: '6', label: '2.00 - 2.32' },
-    { key: '7', label: '0.00 - 1.99' },
-    { key: '8', label: 'N/A'}
+    { key: '3.66 - 4.00', label: '3.66 - 4.00' },
+    { key: '3.33 - 3.65', label: '3.33 - 3.65' },
+    { key: '3.00 - 3.32', label: '3.00 - 3.32' },
+    { key: '2.66 - 2.99', label: '2.66 - 2.99' },
+    { key: '2.33 - 2.65', label: '2.33 - 2.65' },
+    { key: '2.00 - 2.32', label: '2.00 - 2.32' },
+    { key: '0.00 - 1.99', label: '0.00 - 1.99' },
+    { key: 'N/A', label: 'N/A'}
   ];
 })
 /**
