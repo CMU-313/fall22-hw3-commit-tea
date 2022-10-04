@@ -40,6 +40,12 @@ public class Document implements Loggable {
      */
     @Column(name = "DOC_LANGUAGE_C", nullable = false, length = 3)
     private String language;
+
+    /**
+     * Status.
+     */
+    @Column(name = "DOC_STATUS_C", nullable = false, length = 256)
+    private String status = "Ready to review";
     
     /**
      * Title.
@@ -139,6 +145,14 @@ public class Document implements Loggable {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
     public String getUserId() {

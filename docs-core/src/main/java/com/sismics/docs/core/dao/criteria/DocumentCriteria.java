@@ -67,6 +67,11 @@ public class DocumentCriteria {
      * Language.
      */
     private String language;
+
+    /**
+     * Status.
+     */
+    private String status;
     
     /**
      * Creator ID.
@@ -155,6 +160,14 @@ public class DocumentCriteria {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getCreatorId() {

@@ -49,6 +49,7 @@ public class ProcessFilesAction implements Action {
                 event.setUserId("admin");
                 event.setGPA(documentDto.getGPA());
                 event.setLanguage(documentDto.getLanguage());
+                event.setStatus(documentDto.getStatus());
                 event.setFileId(file.getId());
                 event.setUnencryptedFile(unencryptedFile);
                 ThreadLocalContext.get().addAsyncEvent(event);
