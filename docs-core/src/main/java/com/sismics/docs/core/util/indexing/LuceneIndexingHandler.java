@@ -337,6 +337,10 @@ public class LuceneIndexingHandler implements IndexingHandler {
             criteriaList.add("d.DOC_LANGUAGE_C = :language");
             parameterMap.put("language", criteria.getLanguage());
         }
+        if (criteria.getStatus() != null) {
+            criteriaList.add("d.DOC_STATUS_C = :status");
+            parameterMap.put("status", criteria.getStatus());
+        }
         if (criteria.getCreatorId() != null) {
             criteriaList.add("d.DOC_IDUSER_C = :creatorId");
             parameterMap.put("creatorId", criteria.getCreatorId());

@@ -70,6 +70,11 @@ public class DocumentDto {
      * Language.
      */
     private String language;
+
+    /**
+     * Status.
+     */
+    private String status;
     
     /**
      * Creation date.
@@ -230,6 +235,12 @@ public class DocumentDto {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getStatus() {return status;}
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Integer getFileCount() {
