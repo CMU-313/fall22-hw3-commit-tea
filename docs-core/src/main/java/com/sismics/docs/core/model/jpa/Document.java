@@ -57,7 +57,7 @@ public class Document implements Loggable {
      * GPA range.
      */
     @Column(name = "DOC_GPA_C", nullable = false, length = 20)
-    private String gpa = "3.7-4.0";
+    private String gpa = "N/A";
 
     /**
      * Description.
