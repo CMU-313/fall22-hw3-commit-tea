@@ -253,6 +253,28 @@ angular.module('docs',
         }
       }
     })
+
+    .state('dashboard', {
+      url: '/dashboard',
+      abstract: true,
+      views: {
+        'page': {
+          templateUrl: 'partial/docs/dashboard.html',
+          controller: 'Document'
+        }
+      }
+    })
+
+    .state('dashboard.default', {
+      url: '',
+      views: {
+        'document': {
+          templateUrl: 'partial/docs/dashboard.default.html',
+          controller: 'DocumentDefault'
+        }
+      }
+    })
+    
     .state('document', {
       url: '/document',
       abstract: true,
@@ -569,6 +591,7 @@ angular.module('docs',
     { key: 'In review', label: 'In review' },
     { key: 'Flagged', label: 'Flagged' }
   ];
+
 
 })
 /**
