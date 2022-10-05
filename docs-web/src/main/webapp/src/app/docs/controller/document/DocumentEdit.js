@@ -61,7 +61,6 @@ angular.module('docs').controller('DocumentEdit', function($rootScope, $scope, $
       relations: [],
       language: language,
       gpa: "N/A",
-      status: "Ready to review",
       metadata: []
     };
 
