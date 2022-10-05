@@ -60,6 +60,8 @@ angular.module('docs').controller('DocumentEdit', function($rootScope, $scope, $
       tags: [],
       relations: [],
       language: language,
+      gpa: "N/A",
+      status: "Ready to review",
       metadata: []
     };
 
