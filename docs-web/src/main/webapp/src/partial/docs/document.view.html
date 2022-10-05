@@ -41,6 +41,54 @@
     </ul>
     &nbsp;
   </div>
+<!--  -->
+  <div class="pull-right dropdown" uib-dropdown>
+    <button class="btn btn-default" uib-dropdown-toggle>
+      Status:      
+      <span ng-class="getStatusIcon()"></span>
+      {{getStatus()}}
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li>
+        <a href ng-click="updateStatus('Ready to review')">
+          <span class="fas fa-folder-open"></span>
+          Ready to review
+        </a>
+      </li>
+      <li>
+        <a href ng-click="updateStatus('Accepted')">
+          <span class="fas fa-check"></span>
+          Accepted
+        </a>
+      </li>
+      <li>
+        <a href ng-click="updateStatus('Rejected')">
+          <span class="fas fa-times-circle"></span>
+          Rejected
+        </a>
+      </li>
+      <li>
+        <a href ng-click="updateStatus('Waitlisted')">
+          <span class="fas fa-history"></span>
+          Waitlisted
+        </a>
+      </li>
+      <li>
+        <a href ng-click="updateStatus('In review')">
+          <span class="fas fa-clipboard"></span>
+          In review
+        </a>
+      </li>
+      <li>
+        <a href ng-click="updateStatus('Flagged')">
+          <span class="fas fa-flag"></span>
+          Flagged
+        </a>
+      </li>
+    </ul>
+    &nbsp;
+  </div>
 
 	<div class="page-header">
 	  <h1>

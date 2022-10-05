@@ -299,6 +299,10 @@ public class LuceneIndexingHandler implements IndexingHandler {
             criteriaList.add("d.DOC_TITLE_C = :title");
             parameterMap.put("title", criteria.getTitle());
         }
+        if (criteria.getGPA() != null) {
+            criteriaList.add("d.DOC_GPA_C = :gpa");
+            parameterMap.put("gpa", criteria.getGPA());
+        }
         if (!criteria.getTagIdList().isEmpty()) {
             int index = 0;
             for (List<String> tagIdList : criteria.getTagIdList()) {
@@ -336,6 +340,10 @@ public class LuceneIndexingHandler implements IndexingHandler {
         if (criteria.getLanguage() != null) {
             criteriaList.add("d.DOC_LANGUAGE_C = :language");
             parameterMap.put("language", criteria.getLanguage());
+        }
+        if (criteria.getStatus() != null) {
+            criteriaList.add("d.DOC_STATUS_C = :status");
+            parameterMap.put("status", criteria.getStatus());
         }
         if (criteria.getCreatorId() != null) {
             criteriaList.add("d.DOC_IDUSER_C = :creatorId");
