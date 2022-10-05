@@ -39,9 +39,48 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
         .then(function (data) {
           $scope.documents = data.documents;
           $scope.totalDocuments = data.total;
-          $scope.suggestions = data.suggestions;
+          
+          // let docs = [];
+          // for(let i = 0; i < data.total; i++) {
+          //   Restangular.one('document', data.documents[i].id).get().then(
+          //     function (data) {
+          //       docs.push({'title': data.title, 'status': data.status, 'gpa': data.gpa});
+          //     }
+          //   )
+          // }
+          // console.log(docs);
+          // $scope.suggestions = data.suggestions;
         });
   };
+
+  /**
+   * returns summary info abt docs, sorted by gpa
+   */
+  $scope.summaryboxes = function () {
+    Restangular.one('document/list')
+        .get({
+          offset: $scope.offset,
+          limit: $scope.limit,
+          sort_column: $scope.sortColumn,
+          asc: $scope.asc,
+          search: $scope.search
+        })
+        .then(function (data) {
+          $scope.documents = data.documents;
+          $scope.totalDocuments = data.total;
+          
+          let docs = [];
+          for(let i = 0; i < data.total; i++) {
+            Restangular.one('document', data.documents[i].id).get().then(
+              function (data) {
+                docs.push({'title': data.title, 'status': data.status, 'gpa': data.gpa});
+              }
+            )
+          }
+          console.log(docs);
+          $scope.suggestions = data.suggestions;
+        });
+  }
   
   /**
    * Reload documents.
