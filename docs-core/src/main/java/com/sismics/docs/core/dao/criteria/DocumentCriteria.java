@@ -67,6 +67,11 @@ public class DocumentCriteria {
      * Language.
      */
     private String language;
+
+    /**
+     * Status.
+     */
+    private String status;
     
     /**
      * Creator ID.
@@ -87,6 +92,11 @@ public class DocumentCriteria {
      * The title.
      */
     private String title;
+
+     /**
+     * The GPA range.
+     */
+    private String gpa;
 
     public List<String> getTargetIdList() {
         return targetIdList;
@@ -152,6 +162,14 @@ public class DocumentCriteria {
         this.language = language;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getCreatorId() {
         return creatorId;
     }
@@ -198,5 +216,13 @@ public class DocumentCriteria {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getGPA() {
+        return gpa;
+    }
+
+    public void setGPA(String gpa) {
+        this.gpa = gpa;
     }
 }

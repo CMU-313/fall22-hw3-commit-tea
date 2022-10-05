@@ -5,6 +5,7 @@
  */
 angular.module('docs').controller('DocumentView', function ($scope, $rootScope, $state, $stateParams, $location, $dialog, $uibModal, Restangular, $translate) {
   // Load document data from server
+
   Restangular.one('document', $stateParams.id).get().then(function (data) {
     $scope.document = data;
   }, function (response) {
@@ -141,6 +142,53 @@ angular.module('docs').controller('DocumentView', function ($scope, $rootScope, 
 
     return false;
   };
+
+  $scope.updateStatus = function(newStatus) {
+    console.log($stateParams.id);
+    console.log(newStatus)
+    switch (newStatus) {
+      case "Ready to review":
+        Restangular.one('document/readytoreview', $stateParams.id).post('');
+        break;
+      case "In review":
+        Restangular.one('document/inreview', $stateParams.id).post('');
+        break;
+      case "Waitlisted":
+        Restangular.one('document/waitlisted', $stateParams.id).post('');
+        break;
+      case "Accepted":
+        Restangular.one('document/accepted', $stateParams.id).post('');
+        break;
+      case "Rejected":
+        Restangular.one('document/rejected', $stateParams.id).post('');
+        break;
+      case "Flagged":
+        Restangular.one('document/flagged', $stateParams.id).post('');
+        break;
+      default:
+        break;
+    } 
+    window.location.reload();
+  };
+
+  $scope.getStatus = function() {
+    return $scope.document.status;
+  };
+
+  $scope.getStatusIcon = function() {
+
+    $scope.dict = {
+      "ready to review" : "fas fa-folder-open",
+      "in review" : "fas fa-clipboard",
+      "waitlisted" : "fas fa-history",
+      "accepted" : "fas fa-check",
+      "rejected" : "fas fa-times-circle",
+      "flagged" : "fas fa-flag"
+    };
+
+    return $scope.dict[($scope.document.status).toLowerCase()];
+  };
+
 
   /**
    * Validate the workflow.

@@ -20,7 +20,12 @@ public class DocumentDto {
      * Title.
      */
     private String title;
-    
+
+    /**
+     * GPA range.
+     */
+    private String gpa;
+
     /**
      * Description.
      */
@@ -70,6 +75,11 @@ public class DocumentDto {
      * Language.
      */
     private String language;
+
+    /**
+     * Status.
+     */
+    private String status;
     
     /**
      * Creation date.
@@ -134,6 +144,14 @@ public class DocumentDto {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getGPA() {
+        return gpa;
+    }
+
+    public void setGPA(String gpa) {
+        this.gpa = gpa;
     }
 
     public String getDescription() {
@@ -230,6 +248,12 @@ public class DocumentDto {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getStatus() {return status;}
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Integer getFileCount() {
