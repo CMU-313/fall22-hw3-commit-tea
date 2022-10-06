@@ -13,8 +13,9 @@ In addition, the status of a document can be specified here. The status has 6 ca
 ![Screen Shot 2022-10-06 at 7 11 06 PM](https://user-images.githubusercontent.com/111700944/194434826-27f112ed-cb03-4bc6-b9f3-fb7478bd369a.jpg)
 
 When a user clicks on the dashboard page in the navigation bar, they are taken to the dashboard page where they can see a list of all of the documents created. The documents are grouped into columns depending on the statuses of the documents (i.e. all accepted documents would go into a single column). Within each column, each document is reprented as a small box with the name and GPA of the student. Each small box also has two buttons, namely an edit button and a view button.
-<img width="1436" alt="image (3)" src="http<img width="1424" alt="image (4)" src="https://user-images.githubusercontent.com/111700944/194434925-a9ddda78-1ff7-40c6-87fa-8749eb597af5.png">
-s://user-images.githubusercontent.com/111700944/194434897-602ec4d9-d82d-4716-afc0-d74caf388d1d.png">
+<img width="1436" alt="image (3)" src="https://user-images.githubusercontent.com/111700944/194434897-602ec4d9-d82d-4716-afc0-d74caf388d1d.png">
+<img width="1424" alt="image (4)" src="https://user-images.githubusercontent.com/111700944/194434925-a9ddda78-1ff7-40c6-87fa-8749eb597af5.png">
+
 
 The edit button will take the user back to the student/document's edit page.
 <img width="1424" alt="image (4) copy 2" src="https://user-images.githubusercontent.com/111700944/194435053-262df265-4f25-4f36-ac24-532dfce5669b.png">
