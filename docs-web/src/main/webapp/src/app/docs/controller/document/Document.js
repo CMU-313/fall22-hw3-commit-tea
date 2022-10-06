@@ -59,6 +59,31 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
       }
     };
 
+    $scope.getAccepted = function() {
+      return $scope.accept;
+    };
+
+    $scope.getRejected = function() {
+      return $scope.reject;
+    };
+
+    $scope.getWaitlisted = function() {
+      return $scope.waitlist;
+    };
+
+    $scope.getInReview = function() {
+      return $scope.inreview;
+    };
+
+    $scope.getReadyToReview = function() {
+      return $scope.readytoreview;
+    };
+
+    $scope.getFlagged = function() {
+      return $scope.flagged;
+    };
+
+
   /**
    * Load new documents page.
    */
