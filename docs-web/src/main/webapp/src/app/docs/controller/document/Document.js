@@ -18,7 +18,7 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
   $scope.searchOpened = false;
   $scope.searchDropdownAnchor = angular.element(document.querySelector('.search-dropdown-anchor'));
   $scope.paginationShown = true;
-  $scope.advsearch = [];
+  $scope.advsearch = {};
   $scope.accept = {};
   $scope.waitlist = {};
   $scope.reject = {};
