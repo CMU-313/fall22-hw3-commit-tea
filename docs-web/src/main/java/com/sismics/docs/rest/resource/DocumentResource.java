@@ -176,7 +176,8 @@ public class DocumentResource extends BaseResource {
                 .add("language", documentDto.getLanguage())
                 .add("shared", documentDto.getShared())
                 .add("file_count", documentDto.getFileCount())
-                .add("gpa", documentDto.getGPA());
+                .add("gpa", documentDto.getGPA())
+                .add("status", documentDto.getStatus());
 
         List<TagDto> tagDtoList = null;
         if (principal.isAnonymous()) {

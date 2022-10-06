@@ -18,12 +18,47 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
   $scope.searchOpened = false;
   $scope.searchDropdownAnchor = angular.element(document.querySelector('.search-dropdown-anchor'));
   $scope.paginationShown = true;
-  $scope.advsearch = {};
-
+  $scope.advsearch = [];
+  $scope.accept = {};
+  $scope.waitlist = {};
+  $scope.reject = {};
+  $scope.inreview = {};
+  $scope.readytoreview = {};
+  $scope.flagged = {};
   // A timeout promise is used to slow down search requests to the server
   // We keep track of it for cancellation purpose
   var timeoutPromise;
   
+    /**
+   *  Updates respective status scopes
+   */
+    $scope.summaryboxes = function (applicant) {
+      if (applicant.status == "Ready to review"){
+        $scope.readytoreview[applicant.title] = applicant.gpa
+        console.log($scope.readytoreview)
+      }
+      else if (applicant.status == "Accepted"){
+        $scope.accept[applicant.title] = applicant.gpa
+        console.log($scope.accept)
+      }
+      else if (applicant.status == "Rejected"){
+        $scope.reject[applicant.title] = applicant.gpa
+        console.log($scope.reject)
+      }
+      else if (applicant.status == "Waitlisted"){
+        $scope.waitlist[applicant.title] = applicant.gpa
+        console.log($scope.waitlist)
+      }
+      else if (applicant.status == "In Review"){
+        $scope.inreview[applicant.title] = applicant.gpa
+        console.log($scope.inreview)
+      }
+      else if (applicant.status == "Flagged"){
+        $scope.flagged[applicant.title] = applicant.gpa
+        console.log($scope.flagged)
+      }
+    };
+
   /**
    * Load new documents page.
    */
@@ -39,48 +74,24 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
         .then(function (data) {
           $scope.documents = data.documents;
           $scope.totalDocuments = data.total;
-          
-          // let docs = [];
-          // for(let i = 0; i < data.total; i++) {
-          //   Restangular.one('document', data.documents[i].id).get().then(
-          //     function (data) {
-          //       docs.push({'title': data.title, 'status': data.status, 'gpa': data.gpa});
-          //     }
-          //   )
-          // }
-          // console.log(docs);
-          // $scope.suggestions = data.suggestions;
-        });
-  };
+          $scope.suggestions = data.suggestions;
 
-  /**
-   * returns summary info abt docs, sorted by gpa
-   */
-  $scope.summaryboxes = function () {
-    Restangular.one('document/list')
-        .get({
-          offset: $scope.offset,
-          limit: $scope.limit,
-          sort_column: $scope.sortColumn,
-          asc: $scope.asc,
-          search: $scope.search
-        })
-        .then(function (data) {
-          $scope.documents = data.documents;
-          $scope.totalDocuments = data.total;
-          
-          let docs = [];
+          var docs = [];
           for(let i = 0; i < data.total; i++) {
             Restangular.one('document', data.documents[i].id).get().then(
               function (data) {
                 docs.push({'title': data.title, 'status': data.status, 'gpa': data.gpa});
               }
+            ).then ( function () {
+              $scope.summaryboxes(docs[i])
+            }
             )
           }
-          console.log(docs);
-          $scope.suggestions = data.suggestions;
+          
         });
-  }
+  };
+
+
   
   /**
    * Reload documents.
