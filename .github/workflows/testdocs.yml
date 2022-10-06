@@ -29,8 +29,7 @@ jobs:
       - name: Install test dependencies
         run: sudo apt-get -y -q --no-install-recommends install ffmpeg mediainfo tesseract-ocr tesseract-ocr-deu
       - name: Install with Maven
-        run: mvn clean -DskipTests install
-      - name: Test DocumentResource
+        run: mvn clean -DskipTests install 
+      - name: Test DocumentResource, FileUtil, and Dashboard
         run: |
-          cd docs-web
-          mvn -Dtest=TestDocumentResource test
+          mvn -Dtest=TestDocumentResource,TestFileUtil,TestDashboard -DfailIfNoTests=false test
