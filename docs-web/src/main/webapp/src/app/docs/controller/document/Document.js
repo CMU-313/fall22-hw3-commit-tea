@@ -42,19 +42,19 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
         console.log($scope.accept)
       }
       else if (applicant.status == "Rejected"){
-        $scope.reject[applicant.title] = applicant.gpa
+        $scope.reject[applicant.title] = [applicant.gpa, applicant.id]
         console.log($scope.reject)
       }
       else if (applicant.status == "Waitlisted"){
-        $scope.waitlist[applicant.title] = applicant.gpa
+        $scope.waitlist[applicant.title] = [applicant.gpa, applicant.id]
         console.log($scope.waitlist)
       }
       else if (applicant.status == "In Review"){
-        $scope.inreview[applicant.title] = applicant.gpa
+        $scope.inreview[applicant.title] = [applicant.gpa, applicant.id]
         console.log($scope.inreview)
       }
       else if (applicant.status == "Flagged"){
-        $scope.flagged[applicant.title] = applicant.gpa
+        $scope.flagged[applicant.title] = [applicant.gpa, applicant.id]
         console.log($scope.flagged)
       }
     };
@@ -68,9 +68,9 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
         `<div class='card'>
            <div class='card-body'>
             <h4 class='font-weight-bold card-title'>` + key + `</h4>
-            <p class='card-text'> GPA: ` + doc + `</p>
+            <p class='card-text'> GPA: ` + doc[0] + `</p>
             <br>
-            <a href='#/document'>Edit</a>
+            <a href='#/document/edit/${doc[1]}'>Edit</a>
           </div>
         </div>
         <br>`
@@ -124,7 +124,7 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
           for(let i = 0; i < data.total; i++) {
             Restangular.one('document', data.documents[i].id).get().then(
               function (data) {
-                docs.push({'title': data.title, 'status': data.status, 'gpa': data.gpa});
+                docs.push({'title': data.title, 'status': data.status, 'gpa': data.gpa, 'id':data.id});
               }
             ).then ( function () {
               $scope.summaryboxes(docs[i])
