@@ -70,7 +70,8 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
             <h4 class='font-weight-bold card-title'>` + key + `</h4>
             <p class='card-text'> GPA: ` + doc[0] + `</p>
             <br>
-            <a href='#/document/edit/${doc[1]}'>Edit</a>
+            <a class='btn btn-primary' href='#/document/view/${doc[1]}/content'>View</a>&nbsp&nbsp
+            <a class='btn btn-secondary' href='#/document/edit/${doc[1]}'>Edit</a>
           </div>
         </div>
         <br>`
