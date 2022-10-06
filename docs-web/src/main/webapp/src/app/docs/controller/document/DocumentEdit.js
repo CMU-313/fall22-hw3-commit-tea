@@ -62,6 +62,7 @@ angular.module('docs').controller('DocumentEdit', function($rootScope, $scope, $
       language: language,
       gpa: "N/A",
       metadata: []
+      //status: "In Review"
     };
 
     // Get custom metadata list

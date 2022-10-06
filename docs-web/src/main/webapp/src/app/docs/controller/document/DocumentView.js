@@ -171,6 +171,7 @@ angular.module('docs').controller('DocumentView', function ($scope, $rootScope, 
     window.location.reload();
   };
 
+// Status field  
   $scope.getStatus = function() {
     return $scope.document.status;
   };
