@@ -67,11 +67,13 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
         res += 
         `<div class='card'>
            <div class='card-body'>
-            <b><h4 class='font-weight-bold card-title'>` + key + `</h4></b>
+            <h4 class='font-weight-bold card-title'>` + key + `</h4>
             <p class='card-text'> GPA: ` + doc + `</p>
             <br>
+            <a href='#/document'>Edit</a>
           </div>
-        </div>`
+        </div>
+        <br>`
       }
       return res;
     }
