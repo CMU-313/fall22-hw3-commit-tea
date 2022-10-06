@@ -62,6 +62,7 @@ angular.module('docs').controller('DocumentEdit', function($rootScope, $scope, $
       language: language,
       gpa: "N/A",
       metadata: []
+      //status: "In Review"
     };
 
     // Get custom metadata list
@@ -91,7 +92,6 @@ angular.module('docs').controller('DocumentEdit', function($rootScope, $scope, $
   $scope.edit = function() {
     var promise = null;
     var document = angular.copy($scope.document);
-    
     // Transform date to timestamp
     if (document.create_date instanceof Date) {
       document.create_date = document.create_date.getTime();
@@ -115,7 +115,7 @@ angular.module('docs').controller('DocumentEdit', function($rootScope, $scope, $
       }
       return val;
     });
-
+    
     // Send to server
     if ($scope.isEdit()) {
       promise = Restangular.one('document', $stateParams.id).post('', document);
