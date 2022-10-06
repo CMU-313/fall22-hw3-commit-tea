@@ -13,6 +13,6 @@ jobs:
     steps:
       - name: Build with Maven
         run: |
-        cd docs-web
-        mvn -Dtest=TestDocumentResource test
+          cd docs-web
+          mvn -Dtest=TestDocumentResource test
       
