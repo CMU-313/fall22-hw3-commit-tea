@@ -59,28 +59,45 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
       }
     };
 
+    let formatboxes = function(stuff) {
+      let res = "";
+
+      for(var key in stuff){
+        let doc = stuff[key];
+        res += 
+        `<div class='card'>
+           <div class='card-body'>
+            <b><h4 class='font-weight-bold card-title'>` + key + `</h4></b>
+            <p class='card-text'> GPA: ` + doc + `</p>
+            <br>
+          </div>
+        </div>`
+      }
+      return res;
+    }
+
     $scope.getAccepted = function() {
-      return $scope.accept;
+      document.getElementById('acceptedBoxes').innerHTML = formatboxes($scope.accept);
     };
 
     $scope.getRejected = function() {
-      return $scope.reject;
+      document.getElementById('rejectedBoxes').innerHTML = formatboxes($scope.reject);
     };
 
     $scope.getWaitlisted = function() {
-      return $scope.waitlist;
+      document.getElementById('waitlistedBoxes').innerHTML = formatboxes($scope.waitlist);
     };
 
     $scope.getInReview = function() {
-      return $scope.inreview;
+      document.getElementById('inreviewBoxes').innerHTML = formatboxes($scope.inreview);
     };
 
     $scope.getReadyToReview = function() {
-      return $scope.readytoreview;
+      document.getElementById('r2rBoxes').innerHTML = formatboxes($scope.readytoreview);
     };
 
     $scope.getFlagged = function() {
-      return $scope.flagged;
+      document.getElementById('flaggedBoxes').innerHTML = formatboxes($scope.flagged);
     };
 
 
