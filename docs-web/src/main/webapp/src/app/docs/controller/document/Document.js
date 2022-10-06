@@ -42,45 +42,65 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
         console.log($scope.accept)
       }
       else if (applicant.status == "Rejected"){
-        $scope.reject[applicant.title] = applicant.gpa
+        $scope.reject[applicant.title] = [applicant.gpa, applicant.id]
         console.log($scope.reject)
       }
       else if (applicant.status == "Waitlisted"){
-        $scope.waitlist[applicant.title] = applicant.gpa
+        $scope.waitlist[applicant.title] = [applicant.gpa, applicant.id]
         console.log($scope.waitlist)
       }
       else if (applicant.status == "In Review"){
-        $scope.inreview[applicant.title] = applicant.gpa
+        $scope.inreview[applicant.title] = [applicant.gpa, applicant.id]
         console.log($scope.inreview)
       }
       else if (applicant.status == "Flagged"){
-        $scope.flagged[applicant.title] = applicant.gpa
+        $scope.flagged[applicant.title] = [applicant.gpa, applicant.id]
         console.log($scope.flagged)
       }
     };
 
+    let formatboxes = function(stuff) {
+      let res = "";
+
+      for(var key in stuff){
+        let doc = stuff[key];
+        res += 
+        `<div class='card'>
+           <div class='card-body'>
+            <h4 class='font-weight-bold card-title'>` + key + `</h4>
+            <p class='card-text'> GPA: ` + doc[0] + `</p>
+            <br>
+            <a class='btn btn-primary' href='#/document/view/${doc[1]}/content'>View</a>&nbsp&nbsp
+            <a class='btn btn-secondary' href='#/document/edit/${doc[1]}'>Edit</a>
+          </div>
+        </div>
+        <br>`
+      }
+      return res;
+    }
+
     $scope.getAccepted = function() {
-      return $scope.accept;
+      document.getElementById('acceptedBoxes').innerHTML = formatboxes($scope.accept);
     };
 
     $scope.getRejected = function() {
-      return $scope.reject;
+      document.getElementById('rejectedBoxes').innerHTML = formatboxes($scope.reject);
     };
 
     $scope.getWaitlisted = function() {
-      return $scope.waitlist;
+      document.getElementById('waitlistedBoxes').innerHTML = formatboxes($scope.waitlist);
     };
 
     $scope.getInReview = function() {
-      return $scope.inreview;
+      document.getElementById('inreviewBoxes').innerHTML = formatboxes($scope.inreview);
     };
 
     $scope.getReadyToReview = function() {
-      return $scope.readytoreview;
+      document.getElementById('r2rBoxes').innerHTML = formatboxes($scope.readytoreview);
     };
 
     $scope.getFlagged = function() {
-      return $scope.flagged;
+      document.getElementById('flaggedBoxes').innerHTML = formatboxes($scope.flagged);
     };
 
 
@@ -105,7 +125,7 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
           for(let i = 0; i < data.total; i++) {
             Restangular.one('document', data.documents[i].id).get().then(
               function (data) {
-                docs.push({'title': data.title, 'status': data.status, 'gpa': data.gpa});
+                docs.push({'title': data.title, 'status': data.status, 'gpa': data.gpa, 'id':data.id});
               }
             ).then ( function () {
               $scope.summaryboxes(docs[i])
