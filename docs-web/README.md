@@ -29,3 +29,9 @@ The view button will take the user back to the student/document's display page.
 <img width="1424" alt="image (4) copy 3" src="https://user-images.githubusercontent.com/111700944/194439526-37f589d4-0808-42a3-88f8-e9ad6134fe3c.png">
 
 <img width="1436" alt="image (5)" src="https://user-images.githubusercontent.com/111700944/194435135-99a44f11-0390-4cef-aca2-b06c81f3ab1d.png">
+
+In order to user test, one could create documents using the above process, setting their GPAs and statuses to various values. 
+- One could then check the dashboard to make sure that all users were in the dashboard under the correct status columns with the correct GPAs. 
+- After that, one could delete users and make sure they were removed from the dashboard as well. 
+- In addition, one could click the edit buttons on a student in the dashboard and make sure that the edit button redirects to the correct student. One could then make a change to the student's GPA, and check that the GPA change was reflected in the dashboard. 
+- One could also click the view button on a student in the dashboard, and make sure that the link went to the correct student. If the link went to the correct student, one could change the status and then check the dashboard to make sure that the student moved to the correct dashboard column for their new status.
