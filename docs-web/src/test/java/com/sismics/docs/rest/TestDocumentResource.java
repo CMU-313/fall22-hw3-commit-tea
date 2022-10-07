@@ -74,6 +74,7 @@ public class TestDocumentResource extends BaseJerseyTest {
                         .param("source", "Source document 1")
                         .param("type", "Software")
                         .param("coverage", "Greenland")
+                        .param("gpa", "3.33 - 3.65")
                         .param("rights", "Public Domain")
                         .param("tags", tag1Id)
                         .param("tags", tag2Id)
@@ -89,7 +90,6 @@ public class TestDocumentResource extends BaseJerseyTest {
                         .param("title", "My super title document 2")
                         .param("language", "eng")
                         .param("tags", tag2Id)
-                        .param("gpa", "3.33 - 3.65")
                         .param("relations", document1Id)), JsonObject.class);
         String document2Id = json.getString("id");
         Assert.assertNotNull(document2Id);
