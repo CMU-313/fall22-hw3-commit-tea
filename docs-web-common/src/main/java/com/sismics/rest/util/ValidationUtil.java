@@ -109,6 +109,8 @@ public class ValidationUtil {
      * @throws ClientException
      */
     public static String validateGPA(String s) throws ClientException {
+        if (s == null) return "N/A";
+        
         if (s.equals("3.66 - 4.00")
         || s.equals("3.33 - 3.65")
         || s.equals("3.00 - 3.32")

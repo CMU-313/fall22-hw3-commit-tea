@@ -1,37 +1,49 @@
-<a class="btn btn-primary" href="#/document/add" id="newApplicant">New Applicant</a>
-<br><br><br> 
 <div class="container">
     <div class="row">
-      <div class="col-sm-2 well-3d"> 
+      <div class="col-sm-2 well-3d" style="width: 20%; margin-right:10px"> 
         <h4 class="text-center">Ready to Review</h4>
-        <div class="summary-boxes">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Applicant Name</h5>
-              <a href="#" class="card-link">Edit</a>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="card-link">Status</a>
-              <br>
-              <a href="#" class="card-link">GPA</a>
-            </div>
-          </div>
+        <div class="summary-boxes" id="r2rBoxes">
+          {{getReadyToReview()}}
           <br>
         </div>
       </div>
-      <div class="col-sm-2 well-3d"> 
+      <div class="col-sm-2 well-3d" style="width: 20%; margin-right:10px"> 
         <h4 class="text-center">In Review</h4>
+        <div class="summary-boxes" id="inreviewBoxes">
+          {{getInReview()}}
+          <br>
+        </div>
       </div>
-      <div class="col-sm-2 well-3d"> 
+      <div class="col-sm-2 well-3d" style="width: 20%; margin-right:10px"> 
         <h4 class="text-center">Waitlisted</h4>
+          <div class="summary-boxes" id="waitlistedBoxes">
+            {{getWaitlisted()}}
+            <br>
+          </div>
       </div>
-      <div class="col-sm-2 well-3d">  
+      <div class="col-sm-2 well-3d" style="width: 20%; margin-right:10px">  
         <h4 class="text-center">Rejected</h4>
+          <div class="summary-boxes" id="rejectedBoxes">
+            {{getRejected()}}
+            <br>
+          </div>
       </div>
-      <div class="col-sm-2 well-3d">  
+      </div>
+      <div class="col-sm-2 well-3d" style="width: 20%; margin-right:10px">  
         <h4 class="text-center">Accepted</h4>
+        <div class="summary-boxes" id="acceptedBoxes">
+          {{getAccepted()}}
+          <br>
+        </div>
       </div>
-      <div class="col-sm-2 well-3d">  
+      <div class="col-sm-2 well-3d" style="width: 20%">  
         <h4 class="text-center">Flagged</h4>
+        <div class="summary-boxes" id="flaggedBoxes">
+          {{getFlagged()}}
+          <br>
+        </div>
       </div>
     </div>
   </div>
+  <br>
+  <br>
