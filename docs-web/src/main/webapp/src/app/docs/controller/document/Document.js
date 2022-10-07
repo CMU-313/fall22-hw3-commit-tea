@@ -19,11 +19,91 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
   $scope.searchDropdownAnchor = angular.element(document.querySelector('.search-dropdown-anchor'));
   $scope.paginationShown = true;
   $scope.advsearch = {};
-
+  $scope.accept = {};
+  $scope.waitlist = {};
+  $scope.reject = {};
+  $scope.inreview = {};
+  $scope.readytoreview = {};
+  $scope.flagged = {};
   // A timeout promise is used to slow down search requests to the server
   // We keep track of it for cancellation purpose
   var timeoutPromise;
   
+    /**
+   *  Updates respective status scopes
+   */
+    $scope.summaryboxes = function (applicant) {
+      if (applicant.status == "Ready to review"){
+        $scope.readytoreview[applicant.title] = applicant.gpa
+        console.log($scope.readytoreview)
+      }
+      else if (applicant.status == "Accepted"){
+        $scope.accept[applicant.title] = applicant.gpa
+        console.log($scope.accept)
+      }
+      else if (applicant.status == "Rejected"){
+        $scope.reject[applicant.title] = [applicant.gpa, applicant.id]
+        console.log($scope.reject)
+      }
+      else if (applicant.status == "Waitlisted"){
+        $scope.waitlist[applicant.title] = [applicant.gpa, applicant.id]
+        console.log($scope.waitlist)
+      }
+      else if (applicant.status == "In Review"){
+        $scope.inreview[applicant.title] = [applicant.gpa, applicant.id]
+        console.log($scope.inreview)
+      }
+      else if (applicant.status == "Flagged"){
+        $scope.flagged[applicant.title] = [applicant.gpa, applicant.id]
+        console.log($scope.flagged)
+      }
+    };
+
+    let formatboxes = function(stuff) {
+      let res = "";
+
+      for(var key in stuff){
+        let doc = stuff[key];
+        res += 
+        `<div class='card'>
+           <div class='card-body'>
+            <h4 class='font-weight-bold card-title'>` + key + `</h4>
+            <p class='card-text'> GPA: ` + doc[0] + `</p>
+            <br>
+            <a class='btn btn-primary' href='#/document/view/${doc[1]}/content'>View</a>&nbsp&nbsp
+            <a class='btn btn-secondary' href='#/document/edit/${doc[1]}'>Edit</a>
+          </div>
+        </div>
+        <br>`
+      }
+      return res;
+    }
+
+    $scope.getAccepted = function() {
+      document.getElementById('acceptedBoxes').innerHTML = formatboxes($scope.accept);
+    };
+
+    $scope.getRejected = function() {
+      document.getElementById('rejectedBoxes').innerHTML = formatboxes($scope.reject);
+    };
+
+    $scope.getWaitlisted = function() {
+      document.getElementById('waitlistedBoxes').innerHTML = formatboxes($scope.waitlist);
+    };
+
+    $scope.getInReview = function() {
+      document.getElementById('inreviewBoxes').innerHTML = formatboxes($scope.inreview);
+    };
+
+    $scope.getReadyToReview = function() {
+      document.getElementById('r2rBoxes').innerHTML = formatboxes($scope.readytoreview);
+    };
+
+    $scope.getFlagged = function() {
+      document.getElementById('flaggedBoxes').innerHTML = formatboxes($scope.flagged);
+    };
+
+
   /**
    * Load new documents page.
    */
@@ -40,8 +120,23 @@ angular.module('docs').controller('Document', function ($scope, $rootScope, $tim
           $scope.documents = data.documents;
           $scope.totalDocuments = data.total;
           $scope.suggestions = data.suggestions;
+
+          var docs = [];
+          for(let i = 0; i < data.total; i++) {
+            Restangular.one('document', data.documents[i].id).get().then(
+              function (data) {
+                docs.push({'title': data.title, 'status': data.status, 'gpa': data.gpa, 'id':data.id});
+              }
+            ).then ( function () {
+              $scope.summaryboxes(docs[i])
+            }
+            )
+          }
+          
         });
   };
+
+
   
   /**
    * Reload documents.

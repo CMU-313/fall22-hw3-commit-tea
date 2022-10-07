@@ -40,6 +40,12 @@ public class Document implements Loggable {
      */
     @Column(name = "DOC_LANGUAGE_C", nullable = false, length = 3)
     private String language;
+
+    /**
+     * Status.
+     */
+    @Column(name = "DOC_STATUS_C", nullable = false, length = 256)
+    private String status = "Ready to review";
     
     /**
      * Title.
@@ -47,6 +53,12 @@ public class Document implements Loggable {
     @Column(name = "DOC_TITLE_C", nullable = false, length = 100)
     private String title;
     
+    /**
+     * GPA range.
+     */
+    @Column(name = "DOC_GPA_C", nullable = false, length = 20)
+    private String gpa = "N/A";
+
     /**
      * Description.
      */
@@ -134,6 +146,14 @@ public class Document implements Loggable {
     public void setLanguage(String language) {
         this.language = language;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
     
     public String getUserId() {
         return userId;
@@ -159,7 +179,14 @@ public class Document implements Loggable {
     public void setTitle(String title) {
         this.title = title;
     }
+    
+    public void setGPA(String gpa) {
+        this.gpa = gpa;
+    }
 
+    public String getGPA() {
+        return this.gpa;
+    }
     public String getDescription() {
         return description;
     }
@@ -172,8 +199,8 @@ public class Document implements Loggable {
         return subject;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public String setSubject(String subject) {
+        return this.subject = subject;
     }
 
     public String getIdentifier() {
@@ -240,7 +267,6 @@ public class Document implements Loggable {
         this.createDate = createDate;
     }
 
-    @Override
     public Date getDeleteDate() {
         return deleteDate;
     }

@@ -102,6 +102,30 @@ public class ValidationUtil {
             throw new ClientException("ValidationError", MessageFormat.format("{0} must be an email", name));
         }
     }
+
+    /**
+     * Checks if a string is a valid gpa bucket
+     * @param s
+     * @throws ClientException
+     */
+    public static String validateGPA(String s) throws ClientException {
+        if (s == null) return "N/A";
+        
+        if (s.equals("3.66 - 4.00")
+        || s.equals("3.33 - 3.65")
+        || s.equals("3.00 - 3.32")
+        || s.equals("2.66 - 2.99")
+        || s.equals("2.33 - 2.65")
+        || s.equals("2.00 - 2.32")
+        || s.equals("0.00 - 1.99")
+        || s.equals("N/A")) {
+            return s;
+        }
+        else {
+            throw new ClientException("ValidationError", "Invalid GPA");
+
+        }
+    }
     
     /**
      * Checks if the string is a hexadecimal color.

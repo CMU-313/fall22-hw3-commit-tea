@@ -74,6 +74,7 @@ public class TestDocumentResource extends BaseJerseyTest {
                         .param("source", "Source document 1")
                         .param("type", "Software")
                         .param("coverage", "Greenland")
+                        .param("gpa", "3.33 - 3.65")
                         .param("rights", "Public Domain")
                         .param("tags", tag1Id)
                         .param("tags", tag2Id)
@@ -248,6 +249,7 @@ public class TestDocumentResource extends BaseJerseyTest {
         Assert.assertEquals("Greenland", json.getString("coverage"));
         Assert.assertEquals("Public Domain", json.getString("rights"));
         Assert.assertEquals("eng", json.getString("language"));
+        Assert.assertEquals("3.33 - 3.65", json.getString("gpa"));
         Assert.assertEquals(create1Date, json.getJsonNumber("create_date").longValue());
         Assert.assertNotNull(json.get("update_date"));
         tags = json.getJsonArray("tags");
