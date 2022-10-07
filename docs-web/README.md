@@ -18,10 +18,14 @@ When a user clicks on the dashboard page in the navigation bar, they are taken t
 
 
 The edit button will take the user back to the student/document's edit page.
-<img width="1424" alt="image (4) copy 2" src="https://user-images.githubusercontent.com/111700944/194435053-262df265-4f25-4f36-ac24-532dfce5669b.png">
+
+<img width="1424" alt="image (4) copy 4" src="https://user-images.githubusercontent.com/111700944/194439618-986b2006-6913-4a90-ba12-b2fdf39b170c.png">
+
+
 <img width="1435" alt="image (2)" src="https://user-images.githubusercontent.com/111700944/194435093-43c40ac1-e36d-41c8-854b-5237ade7b974.png">
 
 
 The view button will take the user back to the student/document's display page.
-<img width="1424" alt="image (4) copy" src="https://user-images.githubusercontent.com/111700944/194435007-a9f07a05-3b58-4e3d-99c7-8459d78eb7f4.png">
+<img width="1424" alt="image (4) copy 3" src="https://user-images.githubusercontent.com/111700944/194439526-37f589d4-0808-42a3-88f8-e9ad6134fe3c.png">
+
 <img width="1436" alt="image (5)" src="https://user-images.githubusercontent.com/111700944/194435135-99a44f11-0390-4cef-aca2-b06c81f3ab1d.png">
